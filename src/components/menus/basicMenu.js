@@ -17,6 +17,7 @@ const BasicMenu = () => {
                     <li className="pr-6 text-2xl">
                         <Link to={'/todo/'}>Todo</Link>
                     </li>
+                {/*  투두 내에서만 사용하는 레이아웃을 만들 기 위해 OUTLET 이라는 기능을 쓴다 */}
 
 
                 </ul>

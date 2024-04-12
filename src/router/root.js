@@ -6,18 +6,32 @@ const Main = lazy(() => import("../pages/MainPage"));
 
 const About =lazy(()=> import("../pages/AboutPage"));
 
+const TodoIndex= lazy(()=> import("../pages/todo/indexPage"));
+
+const TodoList=lazy(()=> import("../pages/todo/ListPage"));
+
 
 //라우터를 사용할 때에는 a 태그를 쓸 수 없고 링크를 통해서 이동 해야 한다.
 //브라우저는 기본적으로 주소창을 바꾸게 되면 기존의 데이터를 지우고 새로운 데이터를 불러오게 된다.
 // 이를 방지하기 위해 쓰는 게 링크 컴포넌트다.
 const root = createBrowserRouter([
     {
-        path: "/",
+        path: "",
         element: <Suspense fallback={Loding}><Main/></Suspense>
     },
     {
-        path: "/about",
+        path: "about",
         element: <Suspense fallback={Loding}><About/></Suspense>
+    },{
+        path: "todo",
+        element: <Suspense fallback={Loding}><TodoIndex/></Suspense>
+        ,children:[
+            {
+                path: "list",
+                element: <Suspense fallback={Loding}><TodoList/></Suspense>
+            }
+        ]
+
     }
 ])
 
