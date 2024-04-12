@@ -16,6 +16,7 @@ const BasicMenu = () => {
                     </li>
                     <li className="pr-6 text-2xl">
                         <Link to={'/todo/'}>Todo</Link>
+                    {/*    todo에 슬래쉬가 붙어있는 이유?  strict 가 아니라 inclusive 한 경로를 만들기 위함 -> 로그인 화면이라던가 */}
                     </li>
                 {/*  투두 내에서만 사용하는 레이아웃을 만들 기 위해 OUTLET 이라는 기능을 쓴다 */}
 
