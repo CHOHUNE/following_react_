@@ -5,12 +5,8 @@ import todoRouter from "./todoRouter";
 
 const Loading =<div className={'bg-amber-700'}>Loading...</div>
 const Main = lazy(() => import("../pages/MainPage"));
-
 const About =lazy(()=> import("../pages/AboutPage"));
-
 const TodoIndex= lazy(()=> import("../pages/todo/indexPage"));
-
-
 
 //라우터를 사용할 때에는 a 태그를 쓸 수 없고 링크를 통해서 이동 해야 한다.
 //브라우저는 기본적으로 주소창을 바꾸게 되면 기존의 데이터를 지우고 새로운 데이터를 불러오게 된다.

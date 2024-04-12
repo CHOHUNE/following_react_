@@ -8,11 +8,13 @@ const IndexPage = () => {
 
     const handleClickList = useCallback(() => {
         navigate({ pathname:'list' })
-    })
+    //     search: 는 searchParam을 활용할 수 있는 키워드이다.
+        // pathname은 상대경로
+    },[])
 
     const handleClickAdd = useCallback(() => {
         navigate({ pathname:'add' })
-    })
+    },[])
 
     return (
         <BasicLayout>
@@ -23,7 +25,9 @@ const IndexPage = () => {
                 >LIST</div>
 
                 <div
-                    className="text-xl m-1 p-2 w-20 font-extrabold  text-center underline">ADD</div>
+                    className="text-xl m-1 p-2 w-20 font-extrabold  text-center underline"
+                onClick={handleClickAdd}>
+                    ADD</div>
 
             </div>
             <div className="flex flex-wrap w-full">
