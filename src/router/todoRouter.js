@@ -4,7 +4,7 @@ import {Navigate} from "react-router-dom";
 const Loading =<div className={'bg-amber-700'}>Loading...</div>
 
 const TodoList=lazy(()=> import("../pages/todo/ListPage"));
-const TodoAdd = lazy(()=> import("../pages/todo/Addpage"));
+const TodoAdd = lazy(()=> import("../pages/todo/AddPage"));
 const TodoRead = lazy(()=> import("../pages/todo/ReadPage"));
 const TodoModify = lazy(()=> import("../pages/todo/ModifyPage"));
 

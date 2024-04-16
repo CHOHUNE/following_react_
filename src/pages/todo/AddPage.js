@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Addpage(props) {
+function AddPage(props) {
 
     return (
         <div className={"p-4 w-full bg-white"}>
@@ -11,4 +11,4 @@ function Addpage(props) {
     );
 }
 
-export default Addpage;
+export default AddPage;

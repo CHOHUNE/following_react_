@@ -1,5 +1,6 @@
 import React from 'react';
 import {createSearchParams, useNavigate, useParams, useSearchParams} from "react-router-dom";
+import ReadComponent from "../../components/todo/ReadComponent";
 
 function ReadPage(props) {
 
@@ -31,14 +32,14 @@ function ReadPage(props) {
     }
 
     return (
-        <div className={"text-3xl"}>
-            Todo Read Page {tno}
+        <div className={"font-extrabold w-full bg-white mt-6"}>
 
-            <div>
-                <button onClick={moveToList}>List</button>
-                {/*파라메터가 없으면 위 처럼 객체를 직접 지정, 있으면 아래 처럼 화살표 함수*/}
-                <button onClick={()=>moveToModify(tno)}>Test Modify </button>
+
+            <div className={"text-2xl"}>
+                Todo Read Page Component {tno}
             </div>
+
+            <ReadComponent tno={tno} />
         </div>
 
     );
