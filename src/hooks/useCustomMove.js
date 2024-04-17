@@ -2,6 +2,7 @@
 //이름이 use로 시작하는 로직들을 재사용하기 위해 만들어진 게 customHook 이다.
 
 import {createSearchParams, useNavigate, useSearchParams} from "react-router-dom";
+import {useState} from "react";
 
 const getNum= (param,defaultValue)=>{
     if (!param) {
@@ -15,6 +16,8 @@ const getNum= (param,defaultValue)=>{
 const useCustomMove = () => {
 
     const navigate = useNavigate()
+
+    const [refresh, setRefresh] = useState(false);
 
     const [queryParams] = useSearchParams();
 
@@ -33,9 +36,18 @@ const useCustomMove = () => {
         }else{
             queryStr=queryDefault
         }
+
+        setRefresh(!refresh)
         navigate({pathname:'../list',search:queryStr})
     }
-    return {moveToList}
+
+    const moveToModify = (num) =>{
+        navigate({
+            pathname:`../modify/${num}`,
+            search:queryDefault
+        })
+    }
+    return {moveToList, moveToModify,page, size,refresh }
 }
 
 export default useCustomMove;

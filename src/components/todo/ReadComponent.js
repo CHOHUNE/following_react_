@@ -14,7 +14,8 @@ function ReadComponent({tno}) {
 
     const [todo, setTodo] = useState(initState);
 
-    const {moveToList} = useCustomMove();
+
+    const {moveToList,moveToModify} = useCustomMove();
 
     useEffect(() => {
 
@@ -36,6 +37,10 @@ function ReadComponent({tno}) {
             <div className={"flex justify-end p-4"}>
                 <button type={"button"} className={"rounded p-4 m-2 text-xl text-white bg-blue-500"}
                 onClick={()=>moveToList()}>List</button>
+
+                <button type={"button"} className={"rounded p-4 m-2 text-xl text-white bg-green-500"}
+                onClick={()=>moveToModify(todo.tno)}>Modify</button>
+
 
             </div>
 
