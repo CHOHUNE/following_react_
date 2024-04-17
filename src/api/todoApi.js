@@ -23,4 +23,10 @@ export const getList = async (pageParams) =>{
     return res.data
 }
 
+export const postAdd = async(todoObj)=>{
+
+    const res= await axios.post(`${prefix}/`,todoObj)
+    
+    return res.data
+}
 //비동기 처리를 하는 이유 :사용자 인터페이스 응답성 향상 : 순차적으로 실행되고 작업 간의 의존성이 높은 경우가 아니기 때문에 비동기 처리 한다.

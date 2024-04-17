@@ -47,7 +47,18 @@ const useCustomMove = () => {
             search:queryDefault
         })
     }
-    return {moveToList, moveToModify,page, size,refresh }
+
+    const moveToRead =(num)=>{
+        navigate({
+            pathname:`../read/${num}`, //여기서  ../ 는 현재 경로에서 한단계 위로 올라가는 것이다. 즉, /todo/modify/1 에서 /todo/
+            search:queryDefault
+
+        })
+
+    }
+
+
+    return {moveToList, moveToModify,page, size,refresh,moveToRead }
 }
 
 export default useCustomMove;

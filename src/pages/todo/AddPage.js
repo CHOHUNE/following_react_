@@ -1,4 +1,5 @@
 import React from 'react';
+import AddComponent from "../../components/todo/AddComponent";
 
 function AddPage(props) {
 
@@ -7,6 +8,7 @@ function AddPage(props) {
             <div className={"text-3xl font-extrabold"}>
                 Todo Add Page Component
             </div>
+            <AddComponent/>
         </div>
     );
 }
