@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
-import {getOne} from "../../api/todoApi";
+import {deleteOne, getOne, putOne} from "../../api/todoApi";
 import ResultModal from "../common/ResultModal";
+import useCustomMove from "../../hooks/useCustomMove";
 
 const initState = {
     tno: 0, title: "", writer: "", dueDate: "", complete: false
@@ -9,6 +10,13 @@ const initState = {
 function ModifyComponent({tno}) {
 
     const [todo, setTodo] = useState(initState);
+
+    const [result, setResult] = useState(null);
+
+    // 수정시 조회 화면으로 이동할 것
+    // 삭제시 목록으로 이동할 것
+
+    const {moveToList,moveToRead} = useCustomMove();
 
     useEffect(() => {
         getOne(tno).then(data => {
@@ -28,6 +36,38 @@ function ModifyComponent({tno}) {
 
 
         setTodo({...todo});
+    }
+
+    const handleChangeTodoComplete = (e) => {
+
+        todo.complete = e.target.value === 'Y';
+        setTodo({...todo});
+    }
+
+    const handleClickDelete = () =>{
+        deleteOne(tno).then(data =>{
+            console.log("delete result" + data) // {RESULT : "SUCCESS"}
+            setResult("Deleted")
+
+        })
+    }
+
+    const handleClickModify =()=>{
+        putOne(todo).then(data=>{
+            console.log("modify result" + data) // {RESULT : "SUCCESS"}
+            setResult("Modified")
+
+        })
+    }
+
+    const closeModal=()=>{
+
+        if (result === "Deleted") {
+            moveToList()
+        }else{
+            moveToRead(tno)
+        }
+
     }
 
 
