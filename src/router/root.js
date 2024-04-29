@@ -31,7 +31,7 @@ const root = createBrowserRouter([
 
     },{
         path: "products",
-        element: <Suspense fallback={Loading}> <ProductsIndex></ProductsIndex></Suspense>,
+        element: <Suspense fallback={Loading}> <ProductsIndex/></Suspense>,
         children: productsRouter()
     }
 ])
