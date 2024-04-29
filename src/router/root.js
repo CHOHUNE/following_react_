@@ -1,12 +1,15 @@
 import {createBrowserRouter, Route} from "react-router-dom";
 import {lazy, Suspense} from "react";
 import todoRouter from "./todoRouter";
+import productsRouter from "./productsRouter";
+
 
 
 const Loading =<div className={'bg-amber-700'}>Loading...</div>
 const Main = lazy(() => import("../pages/MainPage"));
 const About =lazy(()=> import("../pages/AboutPage"));
 const TodoIndex= lazy(()=> import("../pages/todo/indexPage"));
+const ProductsIndex = lazy ( ()=> import ("../pages/products/IndexPage"))
 
 //라우터를 사용할 때에는 a 태그를 쓸 수 없고 링크를 통해서 이동 해야 한다.
 //브라우저는 기본적으로 주소창을 바꾸게 되면 기존의 데이터를 지우고 새로운 데이터를 불러오게 된다.
@@ -21,11 +24,15 @@ const root = createBrowserRouter([
         element: <Suspense fallback={Loading}><About/></Suspense>
     },{
         path: "todo",
-        element: <Suspense fallback={Loading}><TodoIndex/></Suspense>
-        ,children: todoRouter
+        element: <Suspense fallback={Loading}><TodoIndex/></Suspense>,
+        children: todoRouter()
         /*이전에는 배열로 직접 선언 해줬었는데 투두 라우터의 함수 실행 결과값을 대신 적어 넣어 분리 시켜 놓음 */
 
 
+    },{
+        path: "products",
+        element: <Suspense fallback={Loading}> <ProductsIndex></ProductsIndex></Suspense>,
+        children: productsRouter()
     }
 ])
 
