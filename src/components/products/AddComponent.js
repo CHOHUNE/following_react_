@@ -4,6 +4,7 @@ import { postAdd } from "../../api/productsApi";
 // import FetchingModal from "../common/FetchingModal";
 import ResultModal from "../common/ResultModal";
 import useCustomMove from "../../hooks/useCustomMove";
+import FetchingModal from "../common/FetchingModal";
 
 const initState = {
     pname: '',
@@ -65,16 +66,16 @@ const AddComponent = () => {
     return (
         <div className = "border-2 border-sky-200 mt-10 m-2 p-4">
 
-            {/*{fetching? <FetchingModal/> :<></>}*/}
+            {fetching? <FetchingModal/> :<></>}
 
-            {/*{result?*/}
-            {/*    <ResultModal*/}
-            {/*        title={'Product Add Result'}*/}
-            {/*        content={`${result}번 등록 완료`}*/}
-            {/*        callbackFn ={closeModal}*/}
-            {/*    />*/}
-            {/*    : <></>*/}
-            {/*}*/}
+            {result?
+                <ResultModal
+                    title={'Product Add Result'}
+                    content={`${result}번 등록 완료`}
+                    callbackFn ={closeModal}
+                />
+                : <></>
+            }
 
 
             <div className="flex justify-center">
