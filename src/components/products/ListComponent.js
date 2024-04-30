@@ -45,6 +45,7 @@ const ListComponent = () => {
         <div className="border-2 border-blue-100 mt-10 mr-2 ml-2">
             {fetching ? <FetchingModal/> : <></>}
             <div className="flex flex-wrap mx-auto p-6">
+
                 {serverData.dtoList.map(product =>
                     <div key={product.pno} className="w-1/2 p-1 rounded shadow-md border-2"
                          onClick={() => moveToRead(product.pno)}>
