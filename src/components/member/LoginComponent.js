@@ -1,22 +1,22 @@
 import {useState} from "react"
 import {useDispatch} from "react-redux";
 import {login, loginPostAsync} from "../../slice/loginSlice";
-import {loginPost} from "../../api/memberApi";
-// import useCustomLogin from "../../hooks/useCustomLogin"
+import {useNavigate} from "react-router-dom";
+import {unwrapResult} from '@reduxjs/toolkit';
+import useCustomLogin from "../../hooks/useCustomLogin";
+
 
 const initState = {
     email: '',
     pw: ''
 }
 
-const LoginComponent = () => {
+function LoginComponent(props) {
 
     const [loginParam, setLoginParam] = useState({...initState})
 
-    // const {doLogin, moveToPath} = useCustomLogin()
+    const {doLogin, moveToPath} = useCustomLogin()
 
-    const dispatch = useDispatch()
-    // 상태를 뿌린다. 배포한다.
 
     const handleChange = (e) => {
         loginParam[e.target.name] = e.target.value
@@ -25,9 +25,15 @@ const LoginComponent = () => {
     }
 
     const handleClickLogin = (e) => {
-        // dispatch(login(loginParam))
 
-        dispatch(loginPostAsync(loginParam))
+        doLogin(loginParam).then(data => {
+            if (data.error) {
+                alert("이메일 패스워드를 확인 해주세요 ")
+            } else {
+                moveToPath("/")
+            }
+        })
+
     }
 
 

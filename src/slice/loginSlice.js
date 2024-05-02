@@ -5,7 +5,9 @@ const initState = {
     email: ''
 }
 
-export const loginPostAsync = createAsyncThunk('loginPostAsync', (param) => loginPost(param))
+export const loginPostAsync = createAsyncThunk('loginPostAsync', (param) => {
+    return loginPost(param)
+})
 
 const loginSlice = createSlice({
     name: 'LoginSlice',
@@ -23,25 +25,22 @@ const loginSlice = createSlice({
 
             return {...initState}
         }
-    }, extraReducers: (builder) => {
+    },
+    extraReducers: (builder) => {
         builder.addCase(loginPostAsync.fulfilled, (state, action) => {
             console.log("fulfilled")
-
             const payload = action.payload
-
-            //reducer 이므로 여기서 return 하는 값이 다음 상태로 유지 된다.
-
             return payload
 
+
         })
-            .addCase(loginPostAsync.rejected, (state, action) => {
-                console.log("rejected")
-            })
             .addCase(loginPostAsync.pending, (state, action) => {
                 console.log("pending")
             })
+            .addCase(loginPostAsync.rejected, (state, action) => {
+                console.log("rejected")
+            })
     }
-
 })
 export const {login, logout} = loginSlice.actions
 export default loginSlice.reducer
