@@ -1,13 +1,13 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {loginPost} from "../api/memberApi";
-import {getCookies, removeCookie, setCookie} from "../util/cookieUtil";
+import {getCookie, removeCookie, setCookie} from "../util/cookieUtil";
 
 const initState = {
     email: ''
 }
 
 const loadMemberCookie = () => {
-    const memberInfo = getCookies('member')
+    const memberInfo = getCookie('member')
 
     return memberInfo
 }

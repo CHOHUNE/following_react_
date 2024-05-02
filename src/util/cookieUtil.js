@@ -11,7 +11,7 @@ export const setCookie = (name, value, days = 1) => {
 
 }
 
-export const getCookies = (name) => {
+export const getCookie = (name) => {
 
     return cookies.get(name)
 
