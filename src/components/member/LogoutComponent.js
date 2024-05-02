@@ -1,14 +1,18 @@
 import React from 'react';
 import {useDispatch} from "react-redux";
 import {logout} from "../../slice/loginSlice";
+import useCustomLogin from "../../hooks/useCustomLogin";
 
 function LogoutComponent(props) {
 
-    const dispatch = useDispatch()
+    const {doLogout, moveToPath} = useCustomLogin();
 
     const handleClickLogout = () => {
 
-        dispatch(logout())
+        doLogout()
+        alert("로그아웃 되었습니다.")
+        moveToPath("/")
+
     }
 
     // dispatch 로 상태를 뿌린다 - > reducer 인 loginSlice 의 logout() 을 호출 한다
