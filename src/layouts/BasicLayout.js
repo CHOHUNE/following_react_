@@ -1,5 +1,5 @@
 import React from "react";
-import BasicMenu from "../components/menus/basicMenu";
+import BasicMenu from "../components/menus/BasicMenu";
 
 
 const BasicLayout = ({children}) => {
