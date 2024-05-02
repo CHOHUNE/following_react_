@@ -1,8 +1,12 @@
-import {createSlice} from "@reduxjs/toolkit";
+import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
+import {loginPost} from "../api/memberApi";
 
 const initState = {
     email: ''
 }
+
+export const loginPostAsync = createAsyncThunk('loginPostAsync', (param) => loginPost(param))
+
 const loginSlice = createSlice({
     name: 'LoginSlice',
     initialState: initState,
@@ -19,7 +23,25 @@ const loginSlice = createSlice({
 
             return {...initState}
         }
+    }, extraReducers: (builder) => {
+        builder.addCase(loginPostAsync.fulfilled, (state, action) => {
+            console.log("fulfilled")
+
+            const payload = action.payload
+
+            //reducer 이므로 여기서 return 하는 값이 다음 상태로 유지 된다.
+
+            return payload
+
+        })
+            .addCase(loginPostAsync.rejected, (state, action) => {
+                console.log("rejected")
+            })
+            .addCase(loginPostAsync.pending, (state, action) => {
+                console.log("pending")
+            })
     }
+
 })
 export const {login, logout} = loginSlice.actions
 export default loginSlice.reducer
