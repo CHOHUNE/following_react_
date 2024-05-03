@@ -4,6 +4,7 @@ import {login, loginPostAsync} from "../../slice/loginSlice";
 import {useNavigate} from "react-router-dom";
 import {unwrapResult} from '@reduxjs/toolkit';
 import useCustomLogin from "../../hooks/useCustomLogin";
+import KakaoLoginComponent from "./KakaoLoginComponent";
 
 
 const initState = {
@@ -78,6 +79,7 @@ function LoginComponent(props) {
                     </div>
                 </div>
             </div>
+            <KakaoLoginComponent/>
         </div>
     );
 }
