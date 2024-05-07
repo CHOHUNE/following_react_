@@ -25,7 +25,11 @@ const loginSlice = createSlice({
             console.log("---------------------")
             console.log(action.payload)
             console.log("---------------------")
-            return {email: action.payload.email} // action 에 있는 payload가 실제 전달하는 loginparam 인데 그 email 값을 쓰겠다는 것
+
+            setCookie("member", JSON.stringify(action.payload), 1);
+
+            return action.payload
+            // action 에 있는 payload가 실제 전달하는 loginparam 인데 그 email 값을 쓰겠다는 것
         },
         logout: (state, action) => {
             console.log("logout....")
