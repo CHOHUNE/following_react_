@@ -1,36 +1,62 @@
-import React, {useEffect, useState} from 'react';
-import {API_SERVER_HOST} from "../../api/todoApi";
-import {getOne} from "../../api/productsApi";
-import FetchingModal from "../common/FetchingModal";
-import useCustomMove from "../../hooks/useCustomMove";
-
+import {useEffect, useState} from "react"
+import {getOne} from "../../api/productsApi"
+import {API_SERVER_HOST} from "../../api/todoApi"
+import useCustomMove from "../../hooks/useCustomMove"
+import FetchingModal from "../common/FetchingModal"
+import useCustomCart from "../../hooks/useCustomCart"
+import useCustomLogin from "../../hooks/useCustomLogin"
 
 const initState = {
-    pno:0,
-    pname:'',
-    pdesc:'',
-    price:0,
-    uploadFileNames:[]
+    pno: 0, pname: '', pdesc: '', price: 0, uploadFileNames: []
 }
 
-const host =API_SERVER_HOST
+const host = API_SERVER_HOST
 
-function ReadComponent({pno}) {
+const ReadComponent = ({pno}) => {
 
-    const [product, setProduct] = useState(initState);
+    const [product, setProduct] = useState(initState)
+
+    //화면 이동용 함수
+    const {moveToList, moveToModify} = useCustomMove()
+
+    //fetching
     const [fetching, setFetching] = useState(false)
 
-    const {moveToList,moveToModify, size,page} =useCustomMove()
+    //장바구니 기능
+    const {changeCart, cartItems} = useCustomCart()
+
+    //로그인 정보
+    const {loginState} = useCustomLogin()
+
+    const handleClickAddCart = () => {
+
+        let qty = 1
+
+        const addedItem = cartItems.filter(item => item.pno === parseInt(pno))[0]
+
+        if (addedItem) {
+            if (window.confirm("이미 추가된 상품입니다. 추가하시겠습니까? ") === false) {
+                return
+            }
+            qty = addedItem.qty + 1
+        }
+
+        changeCart({email: loginState.email, pno: pno, qty: qty})
+
+    }
+
 
     useEffect(() => {
 
         setFetching(true)
-        getOne(pno).then(data =>{
-            console.log(data)
+
+        getOne(pno).then(data => {
+
             setProduct(data)
             setFetching(false)
+
         })
-    }, [pno]);
+    }, [pno])
 
     return (
 
@@ -72,31 +98,31 @@ function ReadComponent({pno}) {
                 </div>
             </div>
             <div className="w-full justify-center flex  flex-col m-auto items-center">
-                {product.uploadFileNames.map((imgFile, i) =>
-                    <img
-                        alt="product"
-                        key={i}
-                        className="p-4 w-1/2"
-                        src={`${host}/api/products/view/${imgFile}`}/>
-                )}
+                {product.uploadFileNames.map((imgFile, i) => <img
+                    alt="product"
+                    key={i}
+                    className="p-4 w-1/2"
+                    src={`${host}/api/products/view/${imgFile}`}/>)}
             </div>
 
             <div className="flex justify-end p-4">
                 <button type="button"
-                        className="inline-block rounded p-4 m-2 text-xl w-32  text-white bg-red-500"
-                        onClick={() => moveToModify(pno)}
-                >
+                        className="inline-block rounded p-4 m-2 text-xl w-32 text-white bg-green-500"
+                        onClick={handleClickAddCart}>
+                    Add Cart
+                </button>
+                <button type="button" onClick={() => moveToModify(pno)}
+                        className="inline-block rounded p-4 m-2 text-xl w-32 text-white bg-red-500">
                     Modify
                 </button>
-                <button type="button"
-                        className="rounded p-4 m-2 text-xl w-32 text-white bg-blue-500"
-                        onClick={() => moveToList({page,size})}
-                >
+                <button type="button" onClick={moveToList}
+                        className="rounded p-4 m-2 text-xl w-32 text-white bg-blue-500">
                     List
                 </button>
             </div>
         </div>
 
-    );}
+    )
+}
 
-export default ReadComponent;
+export default ReadComponent

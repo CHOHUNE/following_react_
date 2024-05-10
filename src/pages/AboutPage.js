@@ -7,7 +7,7 @@ function AboutPage(props) {
 
     const {isLogin, moveToLoginReturn} = useCustomLogin();
 
-    if (isLogin) {
+    if (!isLogin) {
         return moveToLoginReturn()
     }
 
