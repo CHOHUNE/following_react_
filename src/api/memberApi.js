@@ -1,5 +1,6 @@
 import axios from "axios"
 import {API_SERVER_HOST} from "./todoApi"
+import jwtAxios from "../util/JwtUtil";
 
 const host = `${API_SERVER_HOST}/api/member`
 
@@ -18,7 +19,7 @@ export const loginPost = async (loginParam) => {
 }
 
 export const modifyMember = async (member) => {
-    const res = await axios.put(`${host}/modify`, member)
+    const res = await jwtAxios.put(`${host}/modify`, member)
 
     return res.data
 }
