@@ -5,6 +5,7 @@ import useCustomMove from "../../hooks/useCustomMove"
 import FetchingModal from "../common/FetchingModal"
 import useCustomCart from "../../hooks/useCustomCart"
 import useCustomLogin from "../../hooks/useCustomLogin"
+import {useQuery} from "@tanstack/react-query";
 
 const initState = {
     pno: 0, pname: '', pdesc: '', price: 0, uploadFileNames: []
@@ -14,19 +15,30 @@ const host = API_SERVER_HOST
 
 const ReadComponent = ({pno}) => {
 
-    const [product, setProduct] = useState(initState)
+    // const [product, setProduct] = useState(initState)
 
     //화면 이동용 함수
     const {moveToList, moveToModify} = useCustomMove()
 
     //fetching
-    const [fetching, setFetching] = useState(false)
+    // const [fetching, setFetching] = useState(false)
 
     //장바구니 기능
     const {changeCart, cartItems} = useCustomCart()
 
     //로그인 정보
     const {loginState} = useCustomLogin()
+
+
+    // v5 에서는 파라메터가 객체로 처리 해야 한다.
+    // v4 에서는 , 로 처리 했었다.
+
+    const {data, isFetching} = useQuery({
+        queryKey: ['products', pno],
+        queryFn: () => getOne(pno),
+        staleTime: 1000 * 10
+
+    })
 
     const handleClickAddCart = () => {
 
@@ -46,23 +58,25 @@ const ReadComponent = ({pno}) => {
     }
 
 
-    useEffect(() => {
+    // useEffect(() => {
+    //
+    //     setFetching(true)
+    //
+    //     getOne(pno).then(data => {
+    //
+    //         setProduct(data)
+    //         setFetching(false)
+    //
+    //     })
+    // }, [pno])
 
-        setFetching(true)
-
-        getOne(pno).then(data => {
-
-            setProduct(data)
-            setFetching(false)
-
-        })
-    }, [pno])
+    const product = data || initState
 
     return (
 
         <div className="border-2 border-sky-200 mt-10 m-2 p-4">
 
-            {fetching ? <FetchingModal/> : <></>}
+            {isFetching ? <FetchingModal/> : <></>}
 
             <div className="flex justify-center mt-10">
                 <div className="relative mb-4 flex w-full flex-wrap items-stretch">
