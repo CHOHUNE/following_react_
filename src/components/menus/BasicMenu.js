@@ -1,9 +1,10 @@
 import {Link} from "react-router-dom";
 import {useSelector, useDispatch} from 'react-redux'
-import useCustomLogin from "../../hooks/useCustomLogin";
 const BasicMenu = () => {
 
-    const {loginState} = useCustomLogin();
+    const loginState = useSelector(state => (
+        state.loginSlice
+    ));
 
     // const dispatch = useDispatch()
 
