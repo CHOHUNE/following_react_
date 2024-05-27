@@ -4,21 +4,17 @@ import {useDispatch, useSelector} from "react-redux";
 import {getCartItemsAsync} from "../../slice/cartSlice";
 import useCustomCart from "../../hooks/useCustomCart";
 import CartItemComponent from "../cart/CartItemComponent";
+import {useRecoilValue} from "recoil";
+import {cartTotalState} from "../../atoms/cartState";
 
 function CartComponent(props) {
 
     const {isLogin, loginState} = useCustomLogin()
 
-    const {refreshCart, cartItems, changeCart} = useCustomCart();
+    const {cartItems, changeCart} = useCustomCart();
 
-    useEffect(() => {
 
-        if (isLogin) {
-
-            refreshCart()
-
-        }
-    }, [isLogin]);
+    const totalValue = useRecoilValue(cartTotalState)
 
 
     return (

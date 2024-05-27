@@ -6,6 +6,7 @@ import {useRecoilState, useResetRecoilState} from "recoil";
 import {signinState} from "../atoms/signinState";
 import {removeCookie, setCookie} from "../util/cookieUtil";
 import {loginPost} from "../api/memberApi";
+import {cartState} from "../atoms/cartState";
 
 const useCustomLogin = () => {
 
@@ -16,6 +17,9 @@ const useCustomLogin = () => {
     const navigate = useNavigate()
 
     const isLogin = loginState.email ? true : false //----------로그인 여부
+
+    const resetCartState = useResetRecoilState(cartState)
+
 
 
     const doLogin = async (loginParam) => { //----------로그인 함수
@@ -32,6 +36,8 @@ const useCustomLogin = () => {
         removeCookie('member')
 
         resetState()
+
+        resetCartState()
 
     }
 

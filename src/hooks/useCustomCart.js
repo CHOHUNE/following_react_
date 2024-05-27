@@ -1,26 +1,50 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {getCartItemsAsync, postChangeCartAsync} from "../slice/cartSlice";
+import {useRecoilState} from "recoil";
+import {cartState} from "../atoms/cartState";
+import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
+import {getCartItems, postChangeCart} from "../api/cartApi";
 
 const UseCustomCart = () => {
 
-    const cartItems = useSelector(state => state.cartSlice)
-    const dispatch = useDispatch()
 
-    const refreshCart = () => {
+    const [cartItems, setCartItems] = useRecoilState(cartState)
 
-        dispatch(getCartItemsAsync())
+    const queryClient = useQueryClient();
 
-    }
+    const changeMutation = useMutation({
+        mutationFn: (param) => postChangeCart(param),
+        onSuccess: (result) => {
+            setCartItems(result)
+        }
+    })
+
+    const query = useQuery({
+        queryKey: ['cart'],
+        queryFn: getCartItems,
+        staleTime: 1000 * 60 * 60
+
+    })
+
+
+    useEffect(() => {
+
+        if (query.isSuccess) {
+            queryClient.invalidateQueries('cart')
+            setCartItems(query.data)
+        }
+
+    }, [query.isSuccess]);
 
     const changeCart = (param) => {
-
-        dispatch(postChangeCartAsync(param))
+        changeMutation.mutate(param)
 
     }
 
-    return {cartItems, refreshCart, changeCart};
 
+    return {cartItems, changeCart}
 };
+
 
 export default UseCustomCart;
