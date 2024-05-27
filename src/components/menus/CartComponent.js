@@ -33,7 +33,7 @@ function CartComponent(props) {
                         <ul>
                             {cartItems.map(item =>
                                 <li>
-                                    <CartItemComponent {...item} key={item.cino} changeCart={changeCart}
+                                    <CartItemComponent {...item} key={item.pno} changeCart={changeCart}
                                                        email={loginState.email}/>
                                 </li>
                             )}
