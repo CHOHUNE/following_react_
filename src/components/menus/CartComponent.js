@@ -1,7 +1,5 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import useCustomLogin from "../../hooks/useCustomLogin";
-import {useDispatch, useSelector} from "react-redux";
-import {getCartItemsAsync} from "../../slice/cartSlice";
 import useCustomCart from "../../hooks/useCustomCart";
 import CartItemComponent from "../cart/CartItemComponent";
 import {useRecoilValue} from "recoil";
